@@ -73,18 +73,18 @@ BinarySearchTree.prototype.search = function(key){
 }
 
 BinarySearchTree.prototype.contains = function(value) {
-    if (!this._root) { //пусто
+    if (!this._root) { 
         return false
     } 
     var node = this._root;             
-    var childQueue = []; // очередь для потомков
-    childQueue.push(node); // добавляем узел в очередь
+    var childQueue = []; 
+    childQueue.push(node); 
     while (childQueue.length > 0) { 
-        node = childQueue.shift(); // извлекаем узел
+        node = childQueue.shift(); 
         if (node.value == value) {
             return true;   
         }   
-        if (node.left) { //если есто потомки, добавляем в очередь
+        if (node.left) {
             childQueue.push(node.left);
         }
         if (node.right) {
@@ -103,7 +103,7 @@ BinarySearchTree.prototype.traverse = function(flag){
     while (childQueue.length > 0) {
         node = childQueue.shift();
         nodes.push(node);
-        if (node.left) { //если есто потомки, добавляем в очередь
+        if (node.left) { 
             childQueue.push(node.left);           
         }
         if (node.right) {
@@ -121,5 +121,29 @@ BinarySearchTree.prototype.traverse = function(flag){
         sortedValues.push(nodes[i].value);
     }
     return sortedValues;
+}
+
+BinarySearchTree.prototype.verify = function() {
+    var node = this._root;             
+    var childQueue = []; 
+    childQueue.push(node);
+    while (childQueue.length > 0) { 
+        node = childQueue.shift(); 
+        if (node.left) { 
+            if (node.key > node.left.key)  {
+                childQueue.push(node.left);
+            } else if (node.key > node.left.key) {
+                return false;
+            }
+        }
+        if (node.right) {
+            if (node.key < node.right.key) {
+                childQueue.push(node.right);
+            } else if (node.key < node.right.key) {
+                return false;
+            }
+        }
+    } 
+    return true;     
 }
 
