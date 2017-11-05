@@ -130,18 +130,18 @@ BinarySearchTree.prototype.verify = function() {
     while (childQueue.length > 0) { 
         node = childQueue.shift(); 
         if (node.left) { 
-            if (node.key > node.left.key)  {
-                childQueue.push(node.left);
-            } else if (node.key > node.left.key) {
+            if (node.key < node.left.key) {
                 return false;
+            } else if (node.key > node.left.key)  {
+                childQueue.push(node.left);
             }
         }
         if (node.right) {
-            if (node.key < node.right.key) {
-                childQueue.push(node.right);
-            } else if (node.key < node.right.key) {
+            if (node.key > node.right.key) {
                 return false;
-            }
+            } else if (node.key < node.right.key) {
+                childQueue.push(node.right);
+            } 
         }
     } 
     return true;     
